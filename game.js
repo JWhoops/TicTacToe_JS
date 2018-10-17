@@ -1,5 +1,5 @@
 //game board object
-const gameBoard = (() =>{
+const gameLogic = (() =>{
 	let slots = [] //slots used to store marks
 	let term, win, takenSlots //define player's term, win status, and taken slot
 	const newGame = () =>{
@@ -24,9 +24,7 @@ const gameBoard = (() =>{
 			else term = term === 1 ? 2 : 1 //change players term
 		}
 	}
-	/*
-	check if produce victory
-	very dumb game logic design
+	/*check if produce victory very dumb game logic design
 	*/
 	const checkWinner = (position) => {
 		if(takenSlots > 4 && takenSlots <= 9){	
@@ -76,9 +74,25 @@ const gameBoard = (() =>{
 	return {newGame,markSlot,getWin,getTerm}
 })()
 
-gameBoard.newGame()
-gameBoard.markSlot(1)
-gameBoard.markSlot(4)
-gameBoard.markSlot(2)
-gameBoard.markSlot(5)
-gameBoard.markSlot(3)
+//iffy
+!function newGame(){
+	gameLogic.newGame()
+    let board = $("#board")
+    //append board with empty label
+    for (let i = 0; i < 9; i++) {
+    	let slot = document.createElement("label")
+    	$(slot).on("click",()=>{
+    		gameLogic.markSlot(gameLogic.term)
+    		let mark = 1 === gameLogic.term ? "X" : "O"
+    		$(slot).text(mark)
+    	})
+    	$(slot).height("60px")
+    	$(slot).width("60px")
+    	$(slot).css("background-color","white")
+    	$(slot).css("display","inline-block")
+    	$(slot).css("margin","5px")
+    	board.append(slot)
+    }
+}()
+
+
