@@ -3,7 +3,7 @@ header{
 }
 
 body{
-    background: url(Parchment.jpg);
+    background: url(../image/Parchment.jpg);
     background-repeat: no-repeat;
     background-size: auto;
 }
