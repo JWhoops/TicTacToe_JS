@@ -1,9 +1,13 @@
 //game board object
-const gameLogic = (() =>{
-	let slots = [] //slots used to store marks
+const gameBoard = (() =>{
+	let slots //slots used to store marks
 	let term, win, takenSlots //define player's term, win status, and taken slot
+	let score_one = 0,score_two = 0
 	const newGame = () =>{
+	    let board = $("#gameBoard")
+	    	board.empty()
 			//append slots with 2
+			slots = []
 			slots[0] = 0// ignore the base index 
 			for (var i = 0; i < 9; i++) {
 				// use 2 to represent slots that haven't taken by player
@@ -12,22 +16,54 @@ const gameLogic = (() =>{
 			win = false //game result
 			term = 1 //player's term
 			takenSlots = 0 //set taken slots number to 0
-		}	
+	    //append board with empty label
+	    for (let i = 1; i < 10; i++) {
+	    	let slot = document.createElement("label")
+	    	$(slot).on("click",()=>{
+	    		$(slot).off('click') //disable the label
+	    		markSlot(i)
+	    		let mark = 1 === term ? "O" : "X"
+	    		$(slot).text(mark)
+	    		$(slot).data("taken",true)
+	    		term = term === 1 ? 2 : 1 //change players term
+	    	})
+	    	//style and append the new 
+	    	$(slot).addClass("slot")
+			$(slot).hover(
+				  	()=>{
+				  		if(!$(slot).data("taken")){
+					  		if(term === 2) $(slot).text( "X" )
+					  		else $(slot).text( "O" )
+				  		}},
+				  	()=>{if(!$(slot).data("taken")) $(slot).text("")});
+
+	    	board.append(slot)
+	    }
+		}
 	//markt the slot with player's number
 	const markSlot = (position) => {
 		//check if slot is taken
 		if(slots[position] === 0){
 			slots[position] = term //mark the slot as occupy
 			takenSlots++ //increase the taken slots number
-			checkWinner(position)
-			if(win) console.log(term + " win")	
-			else term = term === 1 ? 2 : 1 //change players term
-		}
+			checkWin(position)
+			if(win) {
+	    		if(term === 1){
+	    			score_one++
+	    			$("#score_one").text(score_one)
+	    		}else{
+	    			score_two++
+	    			$("#score_two").text(score_two)
+	    		}
+	    		newGame()
+	    		}
+			
+			}
 	}
 	/*check if produce victory very dumb game logic design
 	*/
-	const checkWinner = (position) => {
-		if(takenSlots > 4 && takenSlots <= 9){	
+	const checkWin = (position) => {
+		if(takenSlots > 4 && takenSlots <= 9){
 			//check vertically
 			if(position <= 3){
 				if(slots[position] === slots[position + 3] && slots[position] === slots[position + 6])
@@ -69,30 +105,20 @@ const gameLogic = (() =>{
 			}
 		}
 	}
-	const getWin = ()=>{ return win }//get win result
-	const getTerm = ()=>{ return term }//get win result
-	return {newGame,markSlot,getWin,getTerm}
+	//clear score
+	const clearScore = () => {
+		score_one = 0
+		score_two = 0
+		$("#score_one").text(score_one)
+		$("#score_two").text(score_two)
+	}
+
+	return {newGame,clearScore}
 })()
 
-//iffy
-!function newGame(){
-	gameLogic.newGame()
-    let board = $("#board")
-    //append board with empty label
-    for (let i = 0; i < 9; i++) {
-    	let slot = document.createElement("label")
-    	$(slot).on("click",()=>{
-    		gameLogic.markSlot(gameLogic.term)
-    		let mark = 1 === gameLogic.term ? "X" : "O"
-    		$(slot).text(mark)
-    	})
-    	$(slot).height("60px")
-    	$(slot).width("60px")
-    	$(slot).css("background-color","white")
-    	$(slot).css("display","inline-block")
-    	$(slot).css("margin","5px")
-    	board.append(slot)
-    }
-}()
+//init
+$("#newGameBtn").on("click",()=>{gameBoard.newGame()})
+$("#clearBtn").on("click",()=>{gameBoard.clearScore()})
+gameBoard.newGame()
 
 

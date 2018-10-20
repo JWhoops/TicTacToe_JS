@@ -1,5 +1,70 @@
-#board{
-	width:210px;
-	height:220px;
-	background-color: black;
+header{
+	text-align: center;
+}
+
+body{
+    background: url(Parchment.jpg);
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+/*gameboard*/
+#gameBoard{
+	margin: auto;
+	width:489px;
+	height:489px;
+}
+
+/*label hover background*/
+.lblhoverBg { 
+    background-color: #dfe3ee;
+}
+
+/*slot appearence*/
+.slot{
+	height:150px;
+	width:150px;
+	border: solid 1.5px black;
+	float:left;
+	font-size: 3.0rem;
+	font-family: 'Playball', cursive;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 150px;
+}
+
+#title{
+	font-family: 'Playball', cursive;
+	font-size: 3em;
+
+}
+
+.menuBtn{
+	margin: 5px;
+	border-radius: 10px;
+	font-family: cursive;
+	font-size: 1.5em;
+	border:solid 2px black;
+	padding: 3px;
+	background-color: Transparent;
+    background-repeat:no-repeat;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.menuBtn:hover{
+	background-color: grey;
+}
+
+#hide{
+	display: none;
+}
+
+#announcement{
+	font-family: cursive;
+}
+
+footer{
+	text-align: center;
 }

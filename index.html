@@ -5,14 +5,21 @@
 		Tic Tac Toe With Josiah
 	</title>
 	<link rel="stylesheet" type="text/css" href="index.css">
+	<link href="https://fonts.googleapis.com/css?family=Playball" rel="stylesheet">
 </head>
-<body>
-	<section id="board"></section>
+<body>	
+		<header>
+			<h1 id="title">Tic Tac Toe</h1>
+			<h2>
+				<span id="announcement">Player1:(O)&nbsp<u><span id="score_one">0</span></u>&nbsp|&nbspPlayer2:(X)&nbsp<u><span id="score_two">0</span></u></span>
+			</h2>
+		</header>
+		<section id="gameBoard"></section>
+		<footer><button class="menuBtn" id="clearBtn">Clear Score</button><button class="menuBtn" id="newGameBtn">New Game</button></footer>
 <script
   src="https://code.jquery.com/jquery-3.3.1.slim.js"
   integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
   crossorigin="anonymous"></script>
 <script type="text/javascript" src="game.js"></script>
-<script type="text/javascript" src="index.js"></script>
 </body>
 </html>
